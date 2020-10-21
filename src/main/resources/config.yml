@@ -1,0 +1,21 @@
+# SteelSafe(密匙保险箱) Configuration
+# 作者：Iseason
+# 个人博客：https://www.iseason.top
+# 插件版本:beta_1.0
+
+# 一个玩家可以拥有的最大保险箱数,默认是5，0表示不允许创建，必须是正整数！
+MaxChest: 5
+# op是否可以创建无数个箱子:true/false 默认true
+OpChests: true
+# 漏斗和漏斗矿车是否可以获取保险箱内的物品:true/false 默认false
+Hopper: false
+# 保险箱是否防爆：实体（tnt/creeper/...: true/false 默认false
+EntityExplode: false
+# 保险箱是否防爆：方块（bed/respawn_anchor/...）: true/false 默认false
+BlockExplode: false
+# 设置凋零能否破坏保险箱:true/false 默认false
+WitherDestroy: false
+# 设置末影龙能否破坏保险箱:true/false 默认false
+EnderDragonDestroy: false
+# 管理员是否可以打开任何保险箱（绕过密码验证）:true/false 默认false
+OpOpen: true

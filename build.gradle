@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+}
+
+group 'top.iseason'
+version 'beta1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+repositories {
+    maven {
+        url 'https://papermc.io/repo/repository/maven-public/'
+    }
+}
+
+dependencies {
+    compileOnly 'com.destroystokyo.paper:paper-api:1.16.3-R0.1-SNAPSHOT'
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    compile fileTree(dir: 'lib', includes: ['*jar'])
+}
+
+repositories {
+    maven { url = "https://maven.enginehub.org/repo/" } // WorldEdit
+    maven { url = "https://mvn.intellectualsites.com/content/groups/public/" } // PlotSquared
+}
+
+dependencies {
+    implementation("com.plotsquared:PlotSquared-Core:5.13.3") // PlotSquared Core API
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://maven.enginehub.org/repo/" }
+}
+
+dependencies {
+    compileOnly 'com.sk89q.worldguard:worldguard-bukkit:7.0.4'
+}
+// 使用 UTF-8 防止中文编译错误
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+// 设置插件导出路径
+libsDirName = 'E:\\mc\\testserver\\plugins'
