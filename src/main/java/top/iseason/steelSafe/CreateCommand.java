@@ -49,11 +49,13 @@ public class CreateCommand implements CommandExecutor, TabExecutor {
             }
             Block targetBlock = getLookingAtBlock((Player) sender);
             if (targetBlock.getType() != CHEST && targetBlock.getType() != TRAPPED_CHEST) {
-                sender.sendMessage(ChatColor.YELLOW + "请对着上箱子使用此命令！");
+                String message = Main.getInstance().getConfig().getString("NotChest");
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',message));
                 return true;
             }
             if (!Dependency.pluginCheck(targetBlock, ((Player) sender).getPlayer())) {
-                sender.sendMessage(ChatColor.RED + "你没有此地的权限，无法创建保险箱！");
+                String Message = Main.getInstance().getConfig().getString("HaveNoPermission");
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',Message));
                 return true;
             }
             String World = targetBlock.getWorld().getName();
@@ -65,12 +67,15 @@ public class CreateCommand implements CommandExecutor, TabExecutor {
                 Block relativechest = targetBlock.getRelative(chestface);
                 String data1 = World + "," + targetBlock.getLocation().getBlockX() + "," + targetBlock.getLocation().getBlockY() + "," + targetBlock.getLocation().getBlockZ();
                 if (isLocked(targetBlock) | isLocked(relativechest)) {
+                    String message = Main.getInstance().getConfig().getString("CreateFailure");
                     if (steelSafeList.getString(data1) != null) {
-                        sender.sendMessage(ChatColor.YELLOW + "这个箱子(" + ChatColor.LIGHT_PURPLE + data1 + ChatColor.YELLOW + ")已经上锁了！所有者:" + ChatColor.GREEN + steelSafeList.getString(data1.concat(".owner")));
+                        String messageChange = Message.replace(message,"%chest%",data1,"%player%",steelSafeList.getString(data1.concat(".owner")));
+                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&',messageChange));
                         sender.sendMessage(ChatColor.AQUA + "请输入" + ChatColor.GOLD + "/ssk 密码 以解锁!");
                     } else {
                         String data2 = World + "," + relativechest.getLocation().getBlockX() + "," + relativechest.getLocation().getBlockY() + "," + relativechest.getLocation().getBlockZ();
-                        sender.sendMessage(ChatColor.YELLOW + "这个箱子(" + ChatColor.LIGHT_PURPLE + data2 + ChatColor.YELLOW + ")已经上锁了！所有者:" + ChatColor.GREEN + steelSafeList.getString(data2.concat(".owner")));
+                        String messageChange = Message.replace(message,"%chest%",data2,"%player%",steelSafeList.getString(data2.concat(".owner")));
+                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&',messageChange));
                         sender.sendMessage(ChatColor.AQUA + "请输入" + ChatColor.GOLD + "/ssk 密码 以解锁!");
                     }
                     return true;
@@ -79,8 +84,10 @@ public class CreateCommand implements CommandExecutor, TabExecutor {
 
             } else {
                 String data1 = World + "," + targetBlock.getLocation().getBlockX() + "," + targetBlock.getLocation().getBlockY() + "," + targetBlock.getLocation().getBlockZ();
+                String message = Main.getInstance().getConfig().getString("CreateFailure");
                 if (isLocked(targetBlock)) {
-                    sender.sendMessage(ChatColor.YELLOW + "这个箱子(" + ChatColor.LIGHT_PURPLE + data1 + ChatColor.YELLOW + ")已经上锁了！所有者:" + ChatColor.GREEN + steelSafeList.getString(data1.concat(".owner")));
+                    String messageChange = Message.replace(message,"%chest%",data1,"%player%",steelSafeList.getString(data1.concat(".owner")));
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&',messageChange));
                     sender.sendMessage(ChatColor.AQUA + "请输入" + ChatColor.GOLD + "/ssk 密码 以解锁!");
                     return true;
                 } else {
@@ -153,7 +160,8 @@ public class CreateCommand implements CommandExecutor, TabExecutor {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        sender.sendMessage(ChatColor.GREEN + "箱子" + ChatColor.GOLD + data + ChatColor.GREEN + "已上锁！");
+        String successMessage = Message.replace(Main.getInstance().getConfig().getString("CreateSuccess"),"%chest%",data,"%key%",arg);
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&',successMessage));
         return true;
     }
 

@@ -26,37 +26,44 @@ public class OpenWithKey implements CommandExecutor {
         }
         Block targetBlock = CreateCommand.getLookingAtBlock((Player) sender);
         if (targetBlock.getType() != CHEST && targetBlock.getType() != TRAPPED_CHEST) {
-            sender.sendMessage(ChatColor.YELLOW + "请对着上锁的箱子使用此命令！");
+            String message = Main.getInstance().getConfig().getString("NotChest");
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&',message));
             return true;
         }
         if (!Dependency.pluginCheck(targetBlock, ((Player) sender).getPlayer())) {
-            sender.sendMessage(ChatColor.RED + "你没有此领地的权限，无法创建保险箱！");
+            String message = Main.getInstance().getConfig().getString("HaveNoPermission");
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&',message));
+
             return true;
         }
         BlockFace chestface = OpenCheck.getRelativeChestFace(targetBlock);
         if (!isLocked(targetBlock)) {
+            String unLocked = ChatColor.translateAlternateColorCodes('&',Main.getInstance().getConfig().getString("UnLocked"));
+
             if (chestface == null) {
-                sender.sendMessage(ChatColor.YELLOW + "这个箱子没有上锁！");
+                sender.sendMessage(unLocked);
                 return true;
             }
             Block relative = targetBlock.getRelative(chestface);
             if (!isLocked(relative)) {
-                sender.sendMessage(ChatColor.YELLOW + "这个箱子没有上锁！");
+                sender.sendMessage(unLocked);
                 return true;
             } else {
                 if (tryWithKey(relative, args[0])) {
                     return removeChestWithCommand(sender, relative);
                 } else {
-                    sender.sendMessage(ChatColor.RED + "密码错误！请检测密码正确性");
-                    return false;
+                    String message = Main.getInstance().getConfig().getString("PassWordError");
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&',message));
+                    return true;
                 }
             }
         } else {
             if (tryWithKey(targetBlock, args[0])) {
                 return removeChestWithCommand(sender, targetBlock);
             } else {
-                sender.sendMessage(ChatColor.RED + "密码错误！请检测密码正确性");
-                return false;
+                String message = Main.getInstance().getConfig().getString("PassWordError");
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',message));
+                return true;
             }
         }
 
@@ -68,7 +75,8 @@ public class OpenWithKey implements CommandExecutor {
             sender.sendMessage(ChatColor.RED + "删除操作错误！请通知管理员。");
             return true;
         }
-        sender.sendMessage(ChatColor.GREEN + "密码正确！箱子已解锁。");
+        String message = Main.getInstance().getConfig().getString("PassWordCorrect");
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&',message));
         return true;
     }
 

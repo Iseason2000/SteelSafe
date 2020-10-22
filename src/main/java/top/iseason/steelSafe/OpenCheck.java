@@ -41,7 +41,8 @@ public class OpenCheck implements Listener {
                     }
                     e.getPlayer().closeInventory();
                     e.setCancelled(true);
-                    e.getPlayer().sendMessage(ChatColor.AQUA + "这个箱子已经上锁了，所有者:" + ChatColor.GREEN + steelSafeList.getString(data1.concat(".owner")) + ChatColor.AQUA + "请输入" + ChatColor.GOLD + "/ssk 密码 以解锁!");
+                    String message = Message.replace(Main.getInstance().getConfig().getString("TryToOpen"),"%player%",steelSafeList.getString(data1.concat(".owner"))) ;
+                    e.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',message));
                     return;
                 }
                 return;
@@ -53,7 +54,8 @@ public class OpenCheck implements Listener {
                     }
                     e.getPlayer().closeInventory();
                     e.setCancelled(true);
-                    e.getPlayer().sendMessage(ChatColor.AQUA + "这个箱子已经上锁了，所有者:" + ChatColor.GREEN + steelSafeList.getString(data1.concat(".owner")) + ChatColor.AQUA + "请输入" + ChatColor.GOLD + "/ssk 密码 以解锁!");
+                    String message = Message.replace(Main.getInstance().getConfig().getString("TryToOpen"),"%player%",steelSafeList.getString(data1.concat(".owner"))) ;
+                    e.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',message));
                     return;
                 } else if (isLocked(relativechest)) {
                     if (Main.getInstance().getConfig().getBoolean("OpOpen")) {
@@ -62,7 +64,8 @@ public class OpenCheck implements Listener {
                     e.getPlayer().closeInventory();
                     e.setCancelled(true);
                     String data2 = World + "," + relativechest.getLocation().getBlockX() + "," + relativechest.getLocation().getBlockY() + "," + relativechest.getLocation().getBlockZ();
-                    e.getPlayer().sendMessage(ChatColor.AQUA + "这个箱子已经上锁了，所有者:" + ChatColor.GREEN + steelSafeList.getString(data2.concat(".owner")) + ChatColor.AQUA + "请输入" + ChatColor.GOLD + "/ssk 密码 以解锁!");
+                    String message = Message.replace(Main.getInstance().getConfig().getString("TryToOpen"),"%player%",steelSafeList.getString(data2.concat(".owner"))) ;
+                    e.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',message));
                     return;
                 }
             }
