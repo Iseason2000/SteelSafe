@@ -3,6 +3,8 @@
 
 ## 功能
   通过创建一个仅通过密码交互的保险箱，以完成各种交易、储存行为。目前的大部分箱子锁都需要其主主动给予权限，很是麻烦，而且不方便离线玩家的交易，所以有了这个插件。
+  
+  ----
 
 ## 功能/配置
 
@@ -27,3 +29,13 @@ EnderDragonDestroy: false
 OpOpen: true
 
 ~~~
+
+## 命令
+
+* /steelsafe[ss] help                  -列出所有命令
+* /steelsafe[ss] create 密码 重复密码   -以你面向的箱子创建一个密码保险箱。
+* /steelsafekey[ssk] 密码               -以密码尝试打开上锁的保险箱 
+* /steelsafeshowkey[sssk]               -列出你的所有的保险箱
+* /steelsafereload[ssr]                 -重载插件配置[管理员]
+* /steelsafereremove[ssre]              -强制删除面前的保险箱[管理员]
+
