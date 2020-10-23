@@ -194,7 +194,7 @@ public class CreateCommand implements CommandExecutor, TabExecutor {
         Block lastBlock = iter.next();
         while (iter.hasNext()) {
             lastBlock = iter.next();
-            if (lastBlock.getType() == AIR || lastBlock.isLiquid())
+            if (lastBlock.getType() == AIR || lastBlock.isLiquid())  //忽略空气和液体
                 continue;
             break;
         }

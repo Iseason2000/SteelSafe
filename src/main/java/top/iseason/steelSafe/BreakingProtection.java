@@ -53,31 +53,6 @@ public class BreakingProtection implements Listener {
     }
 
     @EventHandler
-    public void burnEvent(BlockBurnEvent e) {
-        if (e.isCancelled()) {
-            return;
-        }
-        Block targetBlock = e.getBlock();
-        if (targetBlock.getType() != CHEST || targetBlock.getType() != TRAPPED_CHEST) {
-            return;
-        }
-        BlockFace chestface = OpenCheck.getRelativeChestFace(targetBlock);
-        if (chestface == null) {
-            if (isLocked(targetBlock) && ((targetBlock.getType() == CHEST) || (targetBlock.getType() == TRAPPED_CHEST))) {
-                e.setCancelled(true);
-                return;
-            }
-        } else {
-            Block relativechest = targetBlock.getRelative(chestface);
-            if (isLocked(relativechest) && ((relativechest.getType() == CHEST) || (relativechest.getType() == TRAPPED_CHEST))) {
-                e.setCancelled(true);
-                return;
-            }
-        }
-
-    }
-
-    @EventHandler
     public void entityExplodeEvent(EntityExplodeEvent e) {
         if (e.isCancelled()) {
             return;
