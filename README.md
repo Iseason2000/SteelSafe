@@ -60,6 +60,6 @@ PassWordCorrect: "&a密码正确，箱子已解锁！"
 * /steelsafe[ss] create 密码 重复密码　　-以你面向的箱子创建一个密码保险箱。
 * /steelsafekey[ssk] 密码　　　　　　　　-以密码尝试打开上锁的保险箱 
 * /steelsafeshowkey[sssk]　　　　　　　　 -列出你的所有的保险箱
-* /steelsafereload[ssr]　　　　　　　　　-重载插件配置[管理员]
-* /steelsafereremove[ssre]　　　　　　　-强制删除面前的保险箱[管理员]
+* /steelsafereload[ssr]　　　　　　　　　-重载插件配置[管理员 或者权限“steelsafe.admin”]
+* /steelsafereremove[ssre]　　　　　　　-强制删除面前的保险箱[管理员 或者权限“steelsafe.admin”]
 
