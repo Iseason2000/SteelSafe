@@ -20,8 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.bukkit.Material.CHEST;
-import static org.bukkit.Material.TRAPPED_CHEST;
+import static org.bukkit.Material.*;
 import static top.iseason.steelSafe.OpenWithKey.isLocked;
 
 
@@ -195,7 +194,7 @@ public class CreateCommand implements CommandExecutor, TabExecutor {
         Block lastBlock = iter.next();
         while (iter.hasNext()) {
             lastBlock = iter.next();
-            if (lastBlock.getType().isAir() || lastBlock.isLiquid())
+            if (lastBlock.getType() == AIR || lastBlock.isLiquid())
                 continue;
             break;
         }

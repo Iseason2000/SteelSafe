@@ -18,6 +18,9 @@ import static top.iseason.steelSafe.OpenWithKey.isLocked;
 public class MoveItemEvent implements Listener {
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onInventoryMove(InventoryMoveItemEvent event) {
+        if(Main.getInstance().getConfig().getBoolean("Hopper")){
+            return;
+        }
         if (isInventoryLocked(event.getSource())) {
             event.setCancelled(true);
         }

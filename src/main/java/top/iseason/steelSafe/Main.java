@@ -41,7 +41,7 @@ public class Main extends JavaPlugin implements Listener {
     public void onEnable() { //启用插件
         plugin = this;
         new Dependency(this);
-        this.getLogger().info(ChatColor.AQUA + "SteelSafes is enabled！");
+        this.getLogger().info(ChatColor.AQUA + "SteelSafes is enabled!");
         saveDefaultConfig();
         this.saveResource("steelSafes.yml", false);
         this.saveResource("owners.yml", false);
