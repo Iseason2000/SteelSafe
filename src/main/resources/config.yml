@@ -1,7 +1,7 @@
 # SteelSafe(密匙保险箱) Configuration
 # 作者：Iseason
 # 个人博客：https://www.iseason.top
-# 插件版本:beta_1.0
+# 插件版本:1.0
 
 # 一个玩家可以拥有的最大保险箱数,默认是5，0表示不允许创建，必须是正整数！
 MaxChest: 5
