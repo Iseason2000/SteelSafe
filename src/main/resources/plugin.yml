@@ -2,6 +2,7 @@ name: steelSafe
 main: top.iseason.steelSafe.Main
 version: 1.0
 author: Iseason
+softdepend: [WorldGuard,Residence,PlotSquared]
 commands:
   steelsafe:
     description: 创建一个保险柜。

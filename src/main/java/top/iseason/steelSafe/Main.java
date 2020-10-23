@@ -1,5 +1,6 @@
 package top.iseason.steelSafe;
 
+import com.plotsquared.core.command.Chat;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -41,10 +42,11 @@ public class Main extends JavaPlugin implements Listener {
     public void onEnable() { //启用插件
         plugin = this;
         new Dependency(this);
-        this.getLogger().info(ChatColor.AQUA + "SteelSafes is enabled!");
+        this.getLogger().info(ChatColor.AQUA+ "╔═╗┌┬┐┌─┐┌─┐┬  ╔═╗┌─┐┌─┐┌─┐┌─┐");
+        this.getLogger().info(ChatColor.AQUA+ "╚═╗ │ ├┤ ├┤ │  ╚═╗├─┤├┤ ├┤ └─┐");
+        this.getLogger().info(ChatColor.AQUA+ "╚═╝ ┴ └─┘└─┘┴─┘╚═╝┴ ┴└  └─┘└─┘");
         saveDefaultConfig();
-        this.saveResource("steelSafes.yml", false);
-        this.saveResource("owners.yml", false);
+
         steelSafesListFile = new File(getInstance().getDataFolder(), "steelSafes.yml");
         steelSafesOwner = YamlConfiguration.loadConfiguration(steelSafesListFile);
         ownerListFile = new File(getInstance().getDataFolder(), "owners.yml");
@@ -60,10 +62,8 @@ public class Main extends JavaPlugin implements Listener {
 
     }
 
-
     public void onDisable() {//注销插件
         this.saveDefaultConfig();
-        this.saveResource("steelSafes.yml", false);
         plugin = null;
         steelSafesListFile = null;
         steelSafesOwner = null;
