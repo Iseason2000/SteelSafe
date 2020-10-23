@@ -10,18 +10,13 @@ import org.bukkit.command.TabExecutor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
-
-
-import org.bukkit.util.BlockIterator;
-
+import org.bukkit.entity.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.bukkit.Material.*;
 import static top.iseason.steelSafe.OpenWithKey.isLocked;
+import static top.iseason.steelSafe.OpenWithKey.targetCheck;
 
 
 public class CreateCommand implements CommandExecutor, TabExecutor {
@@ -46,22 +41,13 @@ public class CreateCommand implements CommandExecutor, TabExecutor {
                 sender.sendMessage(ChatColor.DARK_RED + "获取玩家" + Name + "失败，请确认玩家是否在线!");
                 return false;
             }
-            Block targetBlock = getLookingAtBlock((Player) sender);
-            if (targetBlock.getType() != CHEST && targetBlock.getType() != TRAPPED_CHEST) {
-                String message = Main.getInstance().getConfig().getString("NotChest");
-                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',message));
-                return true;
-            }
-            if (!Dependency.pluginCheck(targetBlock, ((Player) sender).getPlayer())) {
-                String Message = Main.getInstance().getConfig().getString("HaveNoPermission");
-                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',Message));
+            Block targetBlock = ((Player) sender).getTargetBlock(null,5);
+            if(targetCheck(targetBlock,(Player)sender)){
                 return true;
             }
             String World = targetBlock.getWorld().getName();
             BlockFace chestface = OpenCheck.getRelativeChestFace(targetBlock);
             FileConfiguration steelSafeList = Main.getSteelSafesList();
-
-
             if (chestface != null) {
                 Block relativechest = targetBlock.getRelative(chestface);
                 String data1 = World + "," + targetBlock.getLocation().getBlockX() + "," + targetBlock.getLocation().getBlockY() + "," + targetBlock.getLocation().getBlockZ();
@@ -188,7 +174,7 @@ public class CreateCommand implements CommandExecutor, TabExecutor {
         return true;
     }
 
-
+    /*todo:检查可用性，如果必须则启用。
     public static Block getLookingAtBlock(Player event) {  //获取玩家所看的方块
         BlockIterator iter = new BlockIterator(event, 5);
         Block lastBlock = iter.next();
@@ -197,9 +183,9 @@ public class CreateCommand implements CommandExecutor, TabExecutor {
             if (lastBlock.getType() == AIR || lastBlock.isLiquid())  //忽略空气和液体
                 continue;
             break;
-        }
+        };
         return lastBlock;
-    }
+    }*/
 
 }
 

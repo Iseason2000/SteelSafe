@@ -24,21 +24,13 @@ public class OpenWithKey implements CommandExecutor {
         if (args.length != 1) {
             return false;
         }
-        Block targetBlock = CreateCommand.getLookingAtBlock((Player) sender);
-        if (targetBlock.getType() != CHEST && targetBlock.getType() != TRAPPED_CHEST) {
-            String message = Main.getInstance().getConfig().getString("NotChest");
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&',message));
-            return true;
-        }
-        if (!Dependency.pluginCheck(targetBlock, ((Player) sender).getPlayer())) {
-            String message = Main.getInstance().getConfig().getString("HaveNoPermission");
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&',message));
-
+        Block targetBlock = ((Player) sender).getTargetBlock(null, 5);
+        if (targetCheck(targetBlock, (Player) sender)) {
             return true;
         }
         BlockFace chestface = OpenCheck.getRelativeChestFace(targetBlock);
         if (!isLocked(targetBlock)) {
-            String unLocked = ChatColor.translateAlternateColorCodes('&',Main.getInstance().getConfig().getString("UnLocked"));
+            String unLocked = ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("UnLocked"));
 
             if (chestface == null) {
                 sender.sendMessage(unLocked);
@@ -53,7 +45,7 @@ public class OpenWithKey implements CommandExecutor {
                     return removeChestWithCommand(sender, relative);
                 } else {
                     String message = Main.getInstance().getConfig().getString("PassWordError");
-                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&',message));
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
                     return true;
                 }
             }
@@ -62,7 +54,7 @@ public class OpenWithKey implements CommandExecutor {
                 return removeChestWithCommand(sender, targetBlock);
             } else {
                 String message = Main.getInstance().getConfig().getString("PassWordError");
-                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',message));
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
                 return true;
             }
         }
@@ -76,7 +68,7 @@ public class OpenWithKey implements CommandExecutor {
             return true;
         }
         String message = Main.getInstance().getConfig().getString("PassWordCorrect");
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&',message));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
         return true;
     }
 
@@ -119,5 +111,20 @@ public class OpenWithKey implements CommandExecutor {
         FileConfiguration steelSafeList = Main.getSteelSafesList();
         return steelSafeList.contains(key);
 
+    }
+
+    public static boolean targetCheck(Block targetBlock, Player player) {//检查是否具有目标的权限
+        if (targetBlock.getType() != CHEST && targetBlock.getType() != TRAPPED_CHEST) {
+            String message = Main.getInstance().getConfig().getString("NotChest");
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+            return true;
+        }
+        if (!Dependency.pluginCheck(targetBlock, player)) {
+            String message = Main.getInstance().getConfig().getString("HaveNoPermission");
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+
+            return true;
+        }
+        return false;
     }
 }

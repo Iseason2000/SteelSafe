@@ -9,7 +9,6 @@ import com.plotsquared.core.plot.Plot;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
-
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -62,6 +61,8 @@ public class Dependency {
                 if (!(plot.isOwner(uuid) || plot.getTrusted().contains(uuid) || plot.getMembers().contains(uuid))) {
                     return false;
                 }
+            }else{
+                return false;
             }
         }
         if (worldguard != null) {

@@ -17,7 +17,7 @@ public class RemoveCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender.isOp() | sender.hasPermission("steelsafe.admin")) {
-            Block targetBlock = CreateCommand.getLookingAtBlock((Player) sender);
+            Block targetBlock = ((Player) sender).getTargetBlock(null,5);
             if (targetBlock.getType() == CHEST || targetBlock.getType() == TRAPPED_CHEST) {
                 if (isLocked(targetBlock)) {
                     return removeChestWithCommand(sender, targetBlock);
@@ -51,4 +51,5 @@ public class RemoveCommand implements CommandExecutor {
             return true;
         }
     }
+
 }

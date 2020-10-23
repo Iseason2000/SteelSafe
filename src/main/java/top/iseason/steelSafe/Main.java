@@ -1,6 +1,5 @@
 package top.iseason.steelSafe;
 
-import com.plotsquared.core.command.Chat;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;

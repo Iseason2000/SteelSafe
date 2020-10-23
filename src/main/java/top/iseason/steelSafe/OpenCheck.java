@@ -12,12 +12,10 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-
 import static org.bukkit.Material.CHEST;
 import static org.bukkit.Material.TRAPPED_CHEST;
 import static org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK;
 import static top.iseason.steelSafe.OpenWithKey.isLocked;
-import static top.iseason.steelSafe.CreateCommand.getLookingAtBlock;
 
 
 public class OpenCheck implements Listener {
@@ -25,7 +23,7 @@ public class OpenCheck implements Listener {
     public void openChestCheck(PlayerInteractEvent e) { //todo：在打开的瞬间移开可能会绕过取消事件，待解决。
         if (e.getAction() == RIGHT_CLICK_BLOCK && ((e.getClickedBlock().getType() == CHEST) || (e.getClickedBlock().getType() == TRAPPED_CHEST))) {
             FileConfiguration steelSafeList = Main.getSteelSafesList();
-            Block targetBlock = getLookingAtBlock(e.getPlayer());
+            Block targetBlock = e.getClickedBlock();
             if (targetBlock.getType() != CHEST && targetBlock.getType() != TRAPPED_CHEST) {
                 e.getPlayer().closeInventory();
                 e.setCancelled(true);
@@ -41,8 +39,8 @@ public class OpenCheck implements Listener {
                     }
                     e.getPlayer().closeInventory();
                     e.setCancelled(true);
-                    String message = Message.replace(Main.getInstance().getConfig().getString("TryToOpen"),"%player%",steelSafeList.getString(data1.concat(".owner"))) ;
-                    e.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',message));
+                    String message = Message.replace(Main.getInstance().getConfig().getString("TryToOpen"), "%player%", steelSafeList.getString(data1.concat(".owner")));
+                    e.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', message));
                     return;
                 }
                 return;
@@ -54,8 +52,8 @@ public class OpenCheck implements Listener {
                     }
                     e.getPlayer().closeInventory();
                     e.setCancelled(true);
-                    String message = Message.replace(Main.getInstance().getConfig().getString("TryToOpen"),"%player%",steelSafeList.getString(data1.concat(".owner"))) ;
-                    e.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',message));
+                    String message = Message.replace(Main.getInstance().getConfig().getString("TryToOpen"), "%player%", steelSafeList.getString(data1.concat(".owner")));
+                    e.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', message));
                     return;
                 } else if (isLocked(relativechest)) {
                     if (Main.getInstance().getConfig().getBoolean("OpOpen")) {
@@ -64,8 +62,8 @@ public class OpenCheck implements Listener {
                     e.getPlayer().closeInventory();
                     e.setCancelled(true);
                     String data2 = World + "," + relativechest.getLocation().getBlockX() + "," + relativechest.getLocation().getBlockY() + "," + relativechest.getLocation().getBlockZ();
-                    String message = Message.replace(Main.getInstance().getConfig().getString("TryToOpen"),"%player%",steelSafeList.getString(data2.concat(".owner"))) ;
-                    e.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',message));
+                    String message = Message.replace(Main.getInstance().getConfig().getString("TryToOpen"), "%player%", steelSafeList.getString(data2.concat(".owner")));
+                    e.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', message));
                     return;
                 }
             }
