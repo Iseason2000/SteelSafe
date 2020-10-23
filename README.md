@@ -8,6 +8,9 @@
 **插件支持1.13.x-1.16.x**
 兼容：**PlotSquared、Residence、worldguard**
   
+## 注意
+
+**由于本人不会数据库，故数据储存在"steelSafes.yml"和"owners.yml"文件内。如果要删除数据请同步删除！**
 
 ## 功能/配置
 
