@@ -11,10 +11,12 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.*;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import static top.iseason.steelSafe.OpenWithKey.isLocked;
 import static top.iseason.steelSafe.OpenWithKey.targetCheck;
 
@@ -41,8 +43,8 @@ public class CreateCommand implements CommandExecutor, TabExecutor {
                 sender.sendMessage(ChatColor.DARK_RED + "获取玩家" + Name + "失败，请确认玩家是否在线!");
                 return false;
             }
-            Block targetBlock = ((Player) sender).getTargetBlock(null,5);
-            if(targetCheck(targetBlock,(Player)sender)){
+            Block targetBlock = ((Player) sender).getTargetBlock(null, 5);
+            if (!targetCheck(targetBlock, (Player) sender)) {
                 return true;
             }
             String World = targetBlock.getWorld().getName();
@@ -54,13 +56,13 @@ public class CreateCommand implements CommandExecutor, TabExecutor {
                 if (isLocked(targetBlock) | isLocked(relativechest)) {
                     String message = Main.getInstance().getConfig().getString("CreateFailure");
                     if (steelSafeList.getString(data1) != null) {
-                        String messageChange = Message.replace(message,"%chest%",data1,"%player%",steelSafeList.getString(data1.concat(".owner")));
-                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&',messageChange));
+                        String messageChange = Message.replace(message, "%chest%", data1, "%player%", steelSafeList.getString(data1.concat(".owner")));
+                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messageChange));
                         sender.sendMessage(ChatColor.AQUA + "请输入" + ChatColor.GOLD + "/ssk 密码 以解锁!");
                     } else {
                         String data2 = World + "," + relativechest.getLocation().getBlockX() + "," + relativechest.getLocation().getBlockY() + "," + relativechest.getLocation().getBlockZ();
-                        String messageChange = Message.replace(message,"%chest%",data2,"%player%",steelSafeList.getString(data2.concat(".owner")));
-                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&',messageChange));
+                        String messageChange = Message.replace(message, "%chest%", data2, "%player%", steelSafeList.getString(data2.concat(".owner")));
+                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messageChange));
                         sender.sendMessage(ChatColor.AQUA + "请输入" + ChatColor.GOLD + "/ssk 密码 以解锁!");
                     }
                     return true;
@@ -71,8 +73,8 @@ public class CreateCommand implements CommandExecutor, TabExecutor {
                 String data1 = World + "," + targetBlock.getLocation().getBlockX() + "," + targetBlock.getLocation().getBlockY() + "," + targetBlock.getLocation().getBlockZ();
                 String message = Main.getInstance().getConfig().getString("CreateFailure");
                 if (isLocked(targetBlock)) {
-                    String messageChange = Message.replace(message,"%chest%",data1,"%player%",steelSafeList.getString(data1.concat(".owner")));
-                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&',messageChange));
+                    String messageChange = Message.replace(message, "%chest%", data1, "%player%", steelSafeList.getString(data1.concat(".owner")));
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messageChange));
                     sender.sendMessage(ChatColor.AQUA + "请输入" + ChatColor.GOLD + "/ssk 密码 以解锁!");
                     return true;
                 } else {
@@ -145,8 +147,8 @@ public class CreateCommand implements CommandExecutor, TabExecutor {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String successMessage = Message.replace(Main.getInstance().getConfig().getString("CreateSuccess"),"%chest%",data,"%key%",arg);
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&',successMessage));
+        String successMessage = Message.replace(Main.getInstance().getConfig().getString("CreateSuccess"), "%chest%", data, "%key%", arg);
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', successMessage));
         return true;
     }
 

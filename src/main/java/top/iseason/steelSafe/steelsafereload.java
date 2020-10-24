@@ -19,6 +19,7 @@ public class steelsafereload implements CommandExecutor {
         sender.sendMessage(ChatColor.GREEN + "[SteelSafe]" + ChatColor.YELLOW + " 重载成功！");
         sender.sendMessage(ChatColor.GRAY + "MaxChest: " + ChatColor.YELLOW + config.getInt("MaxChest"));
         sender.sendMessage(ChatColor.GRAY + "OpChests: " + ChatColor.YELLOW + config.getBoolean("OpChests"));
+        sender.sendMessage(ChatColor.GRAY + "OpCreate: " + ChatColor.YELLOW + config.getBoolean("OpCreate"));
         sender.sendMessage(ChatColor.GRAY + "Hopper: " + ChatColor.YELLOW + config.getBoolean("Hopper"));
         sender.sendMessage(ChatColor.GRAY + "EntityExplode: " + ChatColor.YELLOW + config.getBoolean("EntityExplode"));
         sender.sendMessage(ChatColor.GRAY + "BlockExplode: " + ChatColor.YELLOW + config.getBoolean("BlockExplode"));

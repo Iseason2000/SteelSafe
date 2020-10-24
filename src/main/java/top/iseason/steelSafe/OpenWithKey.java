@@ -25,7 +25,7 @@ public class OpenWithKey implements CommandExecutor {
             return false;
         }
         Block targetBlock = ((Player) sender).getTargetBlock(null, 5);
-        if (targetCheck(targetBlock, (Player) sender)) {
+        if (!targetCheck(targetBlock, (Player) sender)) {
             return true;
         }
         BlockFace chestface = OpenCheck.getRelativeChestFace(targetBlock);
@@ -117,14 +117,29 @@ public class OpenWithKey implements CommandExecutor {
         if (targetBlock.getType() != CHEST && targetBlock.getType() != TRAPPED_CHEST) {
             String message = Main.getInstance().getConfig().getString("NotChest");
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
-            return true;
+            return false;
         }
-        if (!Dependency.pluginCheck(targetBlock, player)) {
-            String message = Main.getInstance().getConfig().getString("HaveNoPermission");
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+        if (!Main.getInstance().getConfig().getBoolean("OpCreate")) {
+            if (!Dependency.pluginCheck(targetBlock, player)) {
+                String message = Main.getInstance().getConfig().getString("HaveNoPermission");
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            if (player.isOp()) {
+                return true;
+            } else {
+                if (!Dependency.pluginCheck(targetBlock, player)) {
+                    String message = Main.getInstance().getConfig().getString("HaveNoPermission");
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+                    return false;
+                } else {
+                    return true;
+                }
+            }
 
-            return true;
         }
-        return false;
     }
 }
