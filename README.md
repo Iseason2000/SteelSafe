@@ -25,6 +25,8 @@
 MaxChest: 5
 # op是否可以创建无数个箱子:true/false 默认true
 OpChests: true
+# op是否可以无视WorldGuard/Residence/PlotSquared的权限创建/解锁保险箱:true/false 默认true
+OpCreate: true
 # 漏斗和漏斗矿车是否可以获取保险箱内的物品:true/false 默认false
 Hopper: false
 # 保险箱是否防爆：实体（tnt/creeper/...: true/false 默认false
